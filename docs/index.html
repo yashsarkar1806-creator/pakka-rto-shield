@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pakka · Stop paying for COD orders that come back</title>
+<meta name="description" content="Pakka (fictional startup concept) scores every cash-on-delivery order for return-to-origin risk and runs WhatsApp confirmation and prepaid nudges for Indian D2C brands.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="banner">Portfolio concept by Yash Sarkar. Pakka is a fictional startup; the model, numbers and orders on this page are synthetic.</div>
+<header class="nav">
+  <span class="logo">pakka<span class="dot">.</span></span>
+  <nav><a href="#demo">Live demo</a><a href="#roi">ROI</a><a href="#pricing">Pricing</a><a href="#waitlist" class="btn small">Join waitlist</a></nav>
+</header>
+
+<section class="hero">
+  <h1>Every COD order that comes back costs you twice.</h1>
+  <p class="sub">Pakka scores each cash-on-delivery order for return-to-origin (RTO) risk the moment it's placed, then confirms it on WhatsApp or nudges the shopper to prepay before you ship.</p>
+  <div class="cta-row"><a href="#demo" class="btn" data-track="hero_demo">Score an order</a><a href="#roi" class="btn ghost" data-track="hero_roi">Estimate my savings</a></div>
+  <ul class="steps">
+    <li><b>1. Score</b> each COD order at checkout using order, address and history signals.</li>
+    <li><b>2. Act</b> automatically: ship, confirm on WhatsApp, offer a prepaid discount, or hold.</li>
+    <li><b>3. Learn</b> from delivery outcomes so the model sharpens for your store.</li>
+  </ul>
+</section>
+
+<section id="demo" class="card">
+  <h2>Live demo: score a COD order</h2>
+  <p class="muted">A logistic-regression model trained on <span id="rows"></span> synthetic orders (holdout AUC <span id="auc"></span>). Change the inputs and watch the risk move.</p>
+  <div class="grid2">
+    <form id="orderForm" class="form">
+      <label><input type="checkbox" name="first_time_customer" checked> First-time customer</label>
+      <label><input type="checkbox" name="pincode_tier_3"> Tier-3 or rural pincode</label>
+      <label><input type="checkbox" name="late_night_order"> Ordered between 11pm and 5am</label>
+      <label><input type="checkbox" name="phone_verified"> Phone confirmed on WhatsApp/OTP</label>
+      <label>Order value (INR) <output id="ovOut"></output><input type="range" name="order_value_k" min="0.2" max="8" step="0.1" value="1.8"></label>
+      <label>Address quality <output id="aqOut"></output><input type="range" name="address_quality" min="0" max="1" step="0.05" value="0.6"></label>
+      <label>Past RTOs on this phone <output id="prOut"></output><input type="range" name="past_rto_count" min="0" max="3" step="1" value="0"></label>
+      <label>Discount (%) <output id="dpOut"></output><input type="range" name="discount_pct" min="0" max="60" step="5" value="20"></label>
+    </form>
+    <div class="result">
+      <div class="gauge"><div id="gaugeFill"></div></div>
+      <p class="big"><span id="riskPct">-</span> RTO risk <span id="band" class="pill"></span></p>
+      <p id="action" class="action"></p>
+      <h3>Why this score</h3>
+      <ul id="why" class="why"></ul>
+    </div>
+  </div>
+</section>
+
+<section id="roi" class="card">
+  <h2>What would Pakka save you each month?</h2>
+  <p class="muted">Inputs are yours to change. The default RTO reduction is an assumption, not a measured result.</p>
+  <div class="grid2">
+    <form id="roiForm" class="form">
+      <label>Orders per month <input type="number" name="orders" value="8000" min="0"></label>
+      <label>Share paid by COD (%) <input type="number" name="codShare" value="55" min="0" max="100"></label>
+      <label>COD RTO rate today (%) <input type="number" name="rtoRate" value="22" min="0" max="100"></label>
+      <label>Cost per RTO, INR (both-way shipping and handling) <input type="number" name="costPerRto" value="140" min="0"></label>
+      <label>Average order value, INR <input type="number" name="aov" value="1200" min="0"></label>
+      <label>Gross margin (%) <input type="number" name="grossMargin" value="55" min="0" max="100"></label>
+      <label>Assumed RTO reduction with Pakka (%) <input type="number" name="rtoReduction" value="25" min="0" max="100"></label>
+    </form>
+    <div class="result">
+      <p>Your plan: <b id="planName"></b></p>
+      <dl class="stats">
+        <dt>COD orders scored</dt><dd id="rCod"></dd>
+        <dt>RTOs today</dt><dd id="rBefore"></dd>
+        <dt>RTOs avoided</dt><dd id="rAvoid"></dd>
+        <dt>Savings and recovered margin</dt><dd id="rSave"></dd>
+        <dt>Pakka cost</dt><dd id="rCost"></dd>
+        <dt>Net monthly gain</dt><dd id="rNet" class="hl"></dd>
+        <dt>Return on spend</dt><dd id="rRoi"></dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="card">
+  <h2>Pricing that scales with your COD volume</h2>
+  <div class="plans" id="plans"></div>
+  <p class="muted">Illustrative concept pricing in INR, excluding GST. WhatsApp message charges would be passed through at cost.</p>
+</section>
+
+<section id="waitlist" class="card">
+  <h2>Join the pilot waitlist</h2>
+  <form id="waitForm" class="form inline">
+    <input name="email" type="email" placeholder="you@brand.in" required>
+    <select name="platform"><option>Shopify</option><option>WooCommerce</option><option>Custom</option></select>
+    <button class="btn" type="submit">Request pilot</button>
+  </form>
+  <p id="waitMsg" class="muted" role="status"></p>
+  <p class="muted small">Demo only: sign-ups are stored in your browser (localStorage) with any UTM tags, and nothing is sent anywhere.</p>
+</section>
+
+<footer>
+  <p>Concept, model and site by Yash Sarkar · <a href="https://github.com/yashsarkar1806-creator/pakka-rto-shield">Source and startup brief on GitHub</a> · MIT license</p>
+</footer>
+<script src="weights.js"></script>
+<script src="logic.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

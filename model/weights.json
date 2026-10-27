@@ -1,0 +1,23 @@
+{
+  "intercept": -0.9063,
+  "coef": {
+    "first_time_customer": 0.6873,
+    "pincode_tier_3": 0.4871,
+    "order_value_k": 0.2315,
+    "address_quality": -1.9564,
+    "late_night_order": 0.3564,
+    "past_rto_count": 0.7964,
+    "discount_pct": 0.0165,
+    "phone_verified": -0.8982
+  },
+  "means": {
+    "first_time_customer": 0.6177,
+    "pincode_tier_3": 0.3548,
+    "order_value_k": 1.4039,
+    "address_quality": 0.7153,
+    "late_night_order": 0.1822,
+    "past_rto_count": 0.2437,
+    "discount_pct": 19.366,
+    "phone_verified": 0.4508
+  }
+}

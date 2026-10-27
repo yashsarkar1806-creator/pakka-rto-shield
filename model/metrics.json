@@ -1,0 +1,8 @@
+{
+  "rows": 20000,
+  "synthetic_rto_rate": 0.2597,
+  "holdout_auc": 0.7255,
+  "top20_lift": 1.984,
+  "top20_share_of_rtos_caught": 0.397,
+  "note": "Synthetic data. These numbers describe the demo model on made-up orders, not real-world performance."
+}
